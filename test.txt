@@ -1,0 +1,44 @@
+Which pattern is a recommended test statergy 	
+ice cream cone	
+cup cake	
+pyramid
+
+Passing boolean parameter to a function breaks which principle ?
+SRP	
+OCP	
+KISS
+
+Which Pattern should we follow in unit test 
+3A	
+5A	
+Factory
+
+Duplicating code breaks which principle ? 	
+OCP
+DRY	
+KISS
+
+
+If sub types are not substitutable for base types which principle will you break	
+DIP	
+OCP	
+LSP
+
+Which pattern will you break when you create a GOD Class	
+SRP	
+High Cohesion	
+SOC
+
+Train wreak code breaks which principle ?	
+YAGNI	
+Law of Demter	
+KISS
+
+In the code if the child class know parent class which principle will you break	
+DIP	DRY	OCP
+
+Which principle will you break if you are making change to existing code when ever you add new code	
+KISS	SRP	OCP
+
+Creating fat interfaces breaks which principles	
+SRP	LSP	ISP
