@@ -1,17 +1,17 @@
-Which pattern is a recommended test statergy 	
-ice cream cone	
-cup cake	
-pyramid
+Which is a bad practice in the following 	
+Inheritance
+Aggregation
+Lazy loading
 
 Passing boolean parameter to a function breaks which principle ?
 SRP	
 OCP	
 KISS
 
-Which Pattern should we follow in unit test 
-3A	
-5A	
-Factory
+Which is a good practice in the following 	
+static methods
+overloading
+Composition
 
 Duplicating code breaks which principle ? 	
 OCP
