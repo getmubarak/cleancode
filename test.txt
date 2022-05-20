@@ -34,7 +34,7 @@ a. YAGNI
 b. Law of Demter	
 c. KISS
 
-8. In the code if the child class know parent class which principle will you break	
+8. In the code if the parent class knows the child class which principle will you break	
 a. DIP	
 b. DRY	
 c. OCP
