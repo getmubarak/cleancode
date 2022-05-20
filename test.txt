@@ -1,44 +1,113 @@
-Which is a bad practice in the following 	
-Inheritance
-Aggregation
-Lazy loading
+1. Which is a bad practice in the following 	
+a. Inheritance
+b. Aggregation
+c. Lazy loading
 
-Passing boolean parameter to a function breaks which principle ?
-SRP	
-OCP	
-KISS
+2. Passing boolean parameter to a function breaks which principle ?
+a. SRP	
+b. OCP	
+c. KISS
 
-Which is a good practice in the following 	
-static methods
-overloading
-Composition
+3. Which is a good practice in the following 	
+a. static methods
+b. overloading
+c. Composition
 
-Duplicating code breaks which principle ? 	
-OCP
-DRY	
-KISS
+4. Duplicating code breaks which principle ? 	
+a. OCP
+b. DRY	
+c. KISS
+
+5. If sub types are not substitutable for base types which principle will you break	
+a. DIP	
+b. OCP	
+c. LSP
+
+6. Which pattern will you break when you create a GOD Class	
+a. SRP	
+b. High Cohesion	
+c. SOC
+d. all of the above
+
+7. Train wreak code breaks which principle ?	
+a. YAGNI	
+b. Law of Demter	
+c. KISS
+
+8. In the code if the child class know parent class which principle will you break	
+a. DIP	
+b. DRY	
+c. OCP
+
+9. Which principle will you break if you are making change to existing code when ever you add new code	
+a. KISS	
+b. SRP	
+c. OCP
+
+10. Creating fat interfaces breaks which principles	
+a. SRP	
+b. LSP	
+c. ISP
+
+11. How many lines of code can a good function have?
+a. 5 lines
+b. 20 lines
+c. Fit Screen
+
+12. Maximum cyclomatic complexity of function should be less than
+a. 10
+b. 5 
+c. 15
+
+13. On an average, how many public functions can a class have?
+a. 12
+b. 5
+c. 8
+
+14. Efferent coupling should be less than 
+a. 6
+b. 3
+c. 9
+
+15. Class Hierarchy level should be less than 
+a. 7
+b. 10
+c. 4
+
+16. Which Pattern should we follow in unit test
+a. 5A Pattern
+b. 3A Pattern
+c. Assert Pattern
+
+17. Which pattern will you use to to make business rules readable 
+a. Null Pattern
+b. Boundary Control Entity
+c. Specification Pattern
+
+18. Which pattern will you use to remove null checks 
+a. Null Pattern
+b. Throw Exception
+c. Interface
+
+19. Which pattern seperates domain logic from technology
+a. Model view Controller
+b. Boundary control entity
+c. Specification pattern
+
+20. Which kind of coupling is allowed
+a. Unidirectional
+b. bi directional
+c. cyclic 
 
 
-If sub types are not substitutable for base types which principle will you break	
-DIP	
-OCP	
-LSP
 
-Which pattern will you break when you create a GOD Class	
-SRP	
-High Cohesion	
-SOC
 
-Train wreak code breaks which principle ?	
-YAGNI	
-Law of Demter	
-KISS
 
-In the code if the child class know parent class which principle will you break	
-DIP	DRY	OCP
 
-Which principle will you break if you are making change to existing code when ever you add new code	
-KISS	SRP	OCP
 
-Creating fat interfaces breaks which principles	
-SRP	LSP	ISP
+
+
+
+
+
+
