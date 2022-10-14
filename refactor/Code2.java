@@ -9,6 +9,21 @@ class InputBoundary{
     	in = new Scanner(System.in);
 	
   }
+  public int GetInput(){
+  int numInput;
+			try {
+				numInput = in.nextInt();
+				if (!(numInput > 0 && numInput <= 9)) {
+					System.out.println("Invalid input; re-enter slot number:");
+					continue;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid input; re-enter slot number:");
+				continue;
+			}
+	  return numInput();
+	  
+  }
 }
 class OutputBoundary{
  void printBoard() {
@@ -19,6 +34,13 @@ class OutputBoundary{
 		System.out.println("|-----------|");
 		System.out.println("| " + board[6] + " | " + board[7] + " | " + board[8] + " |");
 		System.out.println("/---|---|---\\");
+	}
+	void printWelcome(){
+		System.out.println("Welcome to 2 Player Tic Tac Toe.");
+		System.out.println("--------------------------------");
+	}
+	void printRules(){
+		System.out.println("X's will play first. Enter a slot number to place X in:");
 	}
 }
 class BoardDTO{
@@ -33,7 +55,7 @@ class BoardDomain{
  	String turn;
   String winner = null;
   
-  GameDomain(){
+  BoardDomain(BoardDTO board){
  	turn = "X";
 		populateEmptyBoard();
   }
@@ -42,8 +64,21 @@ class BoardDomain{
 			board[a] = String.valueOf(a+1);
 		}
 	}
+  void SetState(int numInput){
+  	if (board[numInput-1].equals(String.valueOf(numInput))) {
+				board[numInput-1] = turn;
+				if (turn.equals("X")) {
+					turn = "O";
+				} else {
+					turn = "X";
+				}
+	}
+  }
 }
 class GameDomain{
+  bool IsComplete(){
+   ....
+  }
   String checkWinner() {
 		for (int a = 0; a < 8; a++) {
 			String line = null;
@@ -93,41 +128,29 @@ class GameDomain{
 }
 class Controller{
   void Execute(){
-  	System.out.println("Welcome to 2 Player Tic Tac Toe.");
-		System.out.println("--------------------------------");
-		printBoard();
-		System.out.println("X's will play first. Enter a slot number to place X in:");
-
-		while (winner == null) {
-			int numInput;
-			try {
-				numInput = in.nextInt();
-				if (!(numInput > 0 && numInput <= 9)) {
-					System.out.println("Invalid input; re-enter slot number:");
-					continue;
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid input; re-enter slot number:");
-				continue;
-			}
+	  BoardDTO dto = new BoardDTO();
+  	  OutputBoundary output = new OutputBoundary();
+	  output.printWelcome();
+	  output.printBoard(dto);
+	  output.PrintRules();
+	  GameDomain game = new GameDomain();
+	  InputBoundary input = new InputBoundary();
+	  BoardDomain boardDomain = new BoardDomain(dto);
+	  while (game.IsCompleted()) {
+			int numInput = input.getInput();
+		        if(game.IsPlayValid(numInput))
 			if (board[numInput-1].equals(String.valueOf(numInput))) {
-				board[numInput-1] = turn;
-				if (turn.equals("X")) {
-					turn = "O";
-				} else {
-					turn = "X";
-				}
-				printBoard();
-				winner = checkWinner();
+				boardDomain.SetState(numInput);
+				output.printBoard();
+				game.checkWinner();
 			} else {
-				System.out.println("Slot already taken; re-enter slot number:");
-				continue;
+				output.printSlotTaken();
 			}
 		}
-		if (winner.equalsIgnoreCase("draw")) {
-			System.out.println("It's a draw! Thanks for playing.");
+		if (game.IsDraw("draw")) {
+			output.printDraw();
 		} else {
-			System.out.println("Congratulations! " + winner + "'s have won! Thanks for playing.");
+			output.printWinner(game.getWinnner());
 		}
   }
 }
