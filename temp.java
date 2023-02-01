@@ -23,28 +23,7 @@ class GameOutputBoundary{
 class GameController{
 	static String turn;
 	
-}
-class GameDomain{
-	static String[] board;
-	
-	GameDomain(){
-		board = new String[9];
-		
-	}
-	static void populateEmptyBoard() {
-		for (int a = 0; a < 9; a++) {
-			board[a] = String.valueOf(a+1);
-		}
-	}
-}
-
-
-
-
-public class TicTacToe {
-	
-
-	public static void main(String[] args) {
+	void execute(){	
 		turn = "X";
 		String winner = null;
 		populateEmptyBoard();
@@ -86,7 +65,21 @@ public class TicTacToe {
 			System.out.println("Congratulations! " + winner + "'s have won! Thanks for playing.");
 		}
 	}
-
+	
+}
+class GameDomain{
+	static String[] board;
+	
+	GameDomain(){
+		board = new String[9];
+		
+	}
+	static void populateEmptyBoard() {
+		for (int a = 0; a < 9; a++) {
+			board[a] = String.valueOf(a+1);
+		}
+	}
+	
 	static String checkWinner() {
 		for (int a = 0; a < 8; a++) {
 			String line = null;
@@ -134,5 +127,10 @@ public class TicTacToe {
 		return null;
 	}
 
-	
+}
+
+public class TicTacToe {
+	public static void main(String[] args) {
+		
+	}
 }
