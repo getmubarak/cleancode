@@ -2,12 +2,33 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+class Output{
+	
+	public static void printBoard(Board board) {
+		System.out.println("/---|---|---\\");
+		System.out.println("| " + board.get(0) + " | " + board.get(1) + " | " + board.get(2) + " |");
+		System.out.println("|-----------|");
+		System.out.println("| " + board.get(3) + " | " + board.get(4) + " | " + board.get(5) + " |");
+		System.out.println("|-----------|");
+		System.out.println("| " + board.get(6) + " | " + board.get(7) + " | " + board.get(8) + " |");
+		System.out.println("/---|---|---\\");
+	}
+
+	public static void printWelcome(Board board) {
+		System.out.println("Welcome to 2 Player Tic Tac Toe.");
+		System.out.println("--------------------------------");
+		Output.printBoard(board);
+		System.out.println("X's will play first.");
+
+	}
+}
+
 enum Winner
 {
 	X,
 	O,
-	D,
-	N
+	Draw,
+	None
 }
 class Board{
 	public String[] board;
@@ -41,7 +62,7 @@ class Board{
 				return Winner.X;
 		if( line.equals("OOO"))
 				return Winner.O;
-		return Winner.N;
+		return Winner.None;
 	}
 	public Winner getRow(int rowId) {
 		int cell1 = rowId * 3;
@@ -68,26 +89,7 @@ class Board{
 		return isWinner(cell1,cell2,cell3);
 	}
 }
-class Output{
-	
-	public static void printBoard(Board board) {
-		System.out.println("/---|---|---\\");
-		System.out.println("| " + board.get(0) + " | " + board.get(1) + " | " + board.get(2) + " |");
-		System.out.println("|-----------|");
-		System.out.println("| " + board.get(3) + " | " + board.get(4) + " | " + board.get(5) + " |");
-		System.out.println("|-----------|");
-		System.out.println("| " + board.get(6) + " | " + board.get(7) + " | " + board.get(8) + " |");
-		System.out.println("/---|---|---\\");
-	}
 
-	public static void printWelcome(Board board) {
-		System.out.println("Welcome to 2 Player Tic Tac Toe.");
-		System.out.println("--------------------------------");
-		Output.printBoard(board);
-		System.out.println("X's will play first.");
-
-	}
-}
 
 
 class Algorithm{
@@ -101,40 +103,39 @@ class Algorithm{
 	Winner checkWinnerInRows() {
 		for (int i = 0; i < 3; i++) {
     	    Winner winner = board.getRow(i);
-    		if (winner  != Winner.N)
+    		if (winner  != Winner.None)
     			return  winner;
 		}
-		return Winner.N;
+		return Winner.None;
 	}
 	Winner checkWinnerInCols() {
 		for (int i = 0; i < 3; i++) {
 			 Winner winner = board.getCol(i);
-			 if (winner  != Winner.N)
+			 if (winner  != Winner.None)
 	    			return  winner;
 		}
-		return Winner.N;
+		return Winner.None;
 	}
 	Winner checkWinnerInDiagonal() {
 		Winner winner = board.getDiagonal1();
-		if (winner  != Winner.N)
+		if (winner  != Winner.None)
  			return  winner;
 	    return board.getDiagonal2();
 	}
     Winner checkWinner() {
     	Winner winner = checkWinnerInRows();
-    	if (winner  != Winner.N)
+    	if (winner  != Winner.None)
  			return  winner;
         winner = checkWinnerInCols();
-    	if (winner  != Winner.N)
+    	if (winner  != Winner.None)
  			return  winner;
     	winner = checkWinnerInDiagonal();
-    	if (winner  != Winner.N)
+    	if (winner  != Winner.None)
  			return  winner;
   		if(board.isFull())
-			return Winner.D;	
-		return Winner.N;
+			return Winner.Draw;	
+		return Winner.None;
 	}
-
 }
 class Input{
 	Scanner in;
@@ -147,15 +148,13 @@ class Input{
 		{
 			try {
 				numInput = in.nextInt();
-				if (!(numInput > 0 && numInput <= 9)) {
-					System.out.println("Invalid input; re-enter slot number:");
-				}
-				return numInput;
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid input; re-enter slot number:");
-			}
+				if (numInput > 0 && numInput <= 9) 
+					return numInput;
+				numInput =-1;
+			} catch (InputMismatchException e) {}
+			System.out.println("Invalid input; re-enter slot number:");
 		}
-		return -1;
+		return numInput;
 	}
 }
 class Controller{
@@ -164,9 +163,9 @@ class Controller{
 	Input input = new Input();
 	String turn ="X";
 	public void play() {
-		Winner winner = Winner.N;
+		Winner winner = Winner.None;
 		Output.printWelcome(board);
-		while (winner == Winner.N) {
+		while (winner == Winner.None) {
 			System.out.println(turn + "'s turn; enter a slot number to place " + turn + " in:");
 			int numInput = input.get();
 			if (board.isCellAvailable(numInput)) {
@@ -176,7 +175,7 @@ class Controller{
 				System.out.println("Slot already taken; re-enter slot number:");
 			}
 		}
-		if (winner == Winner.D) {
+		if (winner == Winner.Draw) {
 			System.out.println("It's a draw! Thanks for playing.");
 		} else {
 			System.out.println("Congratulations! " + winner + "'s have won! Thanks for playing.");
