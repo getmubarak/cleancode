@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 class Output{
 	
-	public static void printBoard(Board board) {
+	public void printBoard(Board board) {
 		System.out.println("/---|---|---\\");
 		System.out.println("| " + board.get(0) + " | " + board.get(1) + " | " + board.get(2) + " |");
 		System.out.println("|-----------|");
@@ -14,14 +14,14 @@ class Output{
 		System.out.println("/---|---|---\\");
 	}
 
-	public static void printWelcome(Board board) {
+	public void printWelcome(Board board) {
 		System.out.println("Welcome to 2 Player Tic Tac Toe.");
 		System.out.println("--------------------------------");
 		Output.printBoard(board);
 		System.out.println("X's will play first.");
 
 	}
-	public static void printWinner(Winner winner) {
+	public void printWinner(Winner winner) {
 		if (winner == Winner.Draw) {
 			System.out.println("It's a draw! Thanks for playing.");
 		} else {
@@ -162,7 +162,9 @@ class Controller{
 	Board board= new Board();
 	Algorithm algorithm = new Algorithm(board);
 	Input input = new Input();
+	Output output = new Output();
 	String turn ="X";
+	
 	public boolean isValidInput(int num) {
 		if (num > 0 && num <= 9) 
 			return true;
@@ -170,11 +172,11 @@ class Controller{
 	}
 	public void play() {
 		Winner winner = Winner.None;
-		Output.printWelcome(board);
+		output.printWelcome(board);
 		while (winner == Winner.None) {
 			winner = playStep();
 		}
-		Output.printWinner(winner);
+		output.printWinner(winner);
 	}
 	Winner playStep() {
 		System.out.println(turn + "'s turn; enter a slot number to place " + turn + " in:");
@@ -190,7 +192,7 @@ class Controller{
 		}	
 		board.takeCell(numInput,turn);
 		switchPlayer();
-		Output.printBoard(board);
+		output.printBoard(board);
 		return algorithm.checkWinner();
 	}
 	void switchPlayer() {
