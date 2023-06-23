@@ -21,6 +21,13 @@ class Output{
 		System.out.println("X's will play first.");
 
 	}
+	public static void printWinner(Winner winner) {
+		if (winner == Winner.Draw) {
+			System.out.println("It's a draw! Thanks for playing.");
+		} else {
+			System.out.println("Congratulations! " + winner + "'s have won! Thanks for playing.");
+		}
+	}
 }
 
 enum Winner
@@ -64,25 +71,25 @@ class Board{
 				return Winner.O;
 		return Winner.None;
 	}
-	public Winner getRow(int rowId) {
+	public Winner checkWinnerInRow(int rowId) {
 		int cell1 = rowId * 3;
 		int cell2 = cell1 + 1;
 		int cell3 = cell2 + 1;
 	    return isWinner(cell1,cell2,cell3);
 	}
-	public Winner getCol(int colId) {
+	public Winner checkWinnerInCol(int colId) {
 		int cell1 = colId ;
 		int cell2 = cell1 + 3;
 		int cell3 = cell2 + 3;
 		return isWinner(cell1,cell2,cell3);
 	}
-	public Winner getDiagonal1() {
+	public Winner checkWinnerInDiagonal1() {
 		int cell1 = 0 ;
 		int cell2 = 4;
 		int cell3 = 8;
 		return isWinner(cell1,cell2,cell3);
 	}
-	public Winner getDiagonal2() {
+	public Winner checkWinnerInDiagonal2() {
 		int cell1 = 2 ;
 		int cell2 = 4;
 		int cell3 = 6;
@@ -102,7 +109,7 @@ class Algorithm{
 	
 	Winner checkWinnerInRows() {
 		for (int i = 0; i < 3; i++) {
-    	    Winner winner = board.getRow(i);
+    	    Winner winner = board.checkWinnerInRow(i);
     		if (winner  != Winner.None)
     			return  winner;
 		}
@@ -110,17 +117,17 @@ class Algorithm{
 	}
 	Winner checkWinnerInCols() {
 		for (int i = 0; i < 3; i++) {
-			 Winner winner = board.getCol(i);
+			 Winner winner = board.checkWinnerInCol(i);
 			 if (winner  != Winner.None)
 	    			return  winner;
 		}
 		return Winner.None;
 	}
 	Winner checkWinnerInDiagonal() {
-		Winner winner = board.getDiagonal1();
+		Winner winner = board.checkWinnerInDiagonal1();
 		if (winner  != Winner.None)
  			return  winner;
-	    return board.getDiagonal2();
+	    return board.checkWinnerInDiagonal2();
 	}
     Winner checkWinner() {
     	Winner winner = checkWinnerInRows();
@@ -142,18 +149,12 @@ class Input{
 	public Input() {
 		in = new Scanner(System.in);
 	}
+	
 	public int get() {
 		int numInput =-1;
-		while(numInput < 0)
-		{
-			try {
-				numInput = in.nextInt();
-				if (numInput > 0 && numInput <= 9) 
-					return numInput;
-				numInput =-1;
-			} catch (InputMismatchException e) {}
-			System.out.println("Invalid input; re-enter slot number:");
-		}
+		try {
+			return in.nextInt();
+		} catch (InputMismatchException e) {}
 		return numInput;
 	}
 }
@@ -162,34 +163,42 @@ class Controller{
 	Algorithm algorithm = new Algorithm(board);
 	Input input = new Input();
 	String turn ="X";
+	public boolean isValidInput(int num) {
+		if (num > 0 && num <= 9) 
+			return true;
+		return false;
+	}
 	public void play() {
 		Winner winner = Winner.None;
 		Output.printWelcome(board);
 		while (winner == Winner.None) {
-			System.out.println(turn + "'s turn; enter a slot number to place " + turn + " in:");
-			int numInput = input.get();
-			if (board.isCellAvailable(numInput)) {
-				winner = playTurn(numInput);
-			} 
-			else {
-				System.out.println("Slot already taken; re-enter slot number:");
-			}
+			winner = playStep();
 		}
-		if (winner == Winner.Draw) {
-			System.out.println("It's a draw! Thanks for playing.");
-		} else {
-			System.out.println("Congratulations! " + winner + "'s have won! Thanks for playing.");
-		}
+		Output.printWinner(winner);
 	}
-	Winner playTurn(int numInput ) {
+	Winner playStep() {
+		System.out.println(turn + "'s turn; enter a slot number to place " + turn + " in:");
+		int numInput = input.get();
+		if (!isValidInput(numInput))
+		{
+			System.out.println("Invalid input; re-enter slot number:");
+			return Winner.None;
+		}
+		if (!board.isCellAvailable(numInput)) {
+			System.out.println("Slot already taken; re-enter slot number:");
+			return Winner.None;
+		}	
 		board.takeCell(numInput,turn);
+		switchPlayer();
+		Output.printBoard(board);
+		return algorithm.checkWinner();
+	}
+	void switchPlayer() {
 		if (turn.equals("X")) {
 			turn = "O";
 		} else {
 			turn = "X";
 		}
-		Output.printBoard(board);
-		return algorithm.checkWinner();
 	}
 }
 public class Main {
