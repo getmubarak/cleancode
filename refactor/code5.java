@@ -30,13 +30,6 @@ class Output{
 	}
 }
 
-enum Winner
-{
-	X,
-	O,
-	Draw,
-	None
-}
 class Board{
 	public String[] board;
 	
@@ -67,6 +60,13 @@ class Board{
 
 
 
+enum Winner
+{
+	X,
+	O,
+	Draw,
+	None
+}
 class Game{
 	Board board;
 	String line="";
