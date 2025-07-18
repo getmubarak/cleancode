@@ -148,7 +148,11 @@ class Input{
 	public Input() {
 		in = new Scanner(System.in);
 	}
-	
+	public boolean isValidInput(int num) {
+		if (num > 0 && num <= 9) 
+			return true;
+		return false;
+	}
 	public int get() {
 		int numInput =-1;
 		try {
@@ -159,16 +163,11 @@ class Input{
 }
 class Controller{
 	Board board= new Board();
-	Algorithm algorithm = new Algorithm(board);
+	Game game = new Game(board);
 	Input input = new Input();
 	Output output = new Output();
 	String turn ="X";
 	
-	public boolean isValidInput(int num) {
-		if (num > 0 && num <= 9) 
-			return true;
-		return false;
-	}
 	public void play() {
 		Winner winner = Winner.None;
 		output.printWelcome(board);
@@ -180,7 +179,7 @@ class Controller{
 	Winner playStep() {
 		System.out.println(turn + "'s turn; enter a slot number to place " + turn + " in:");
 		int numInput = input.get();
-		if (!isValidInput(numInput))
+		if (!input.isValidInput(numInput))
 		{
 			System.out.println("Invalid input; re-enter slot number:");
 			return Winner.None;
@@ -192,7 +191,7 @@ class Controller{
 		board.takeCell(numInput,turn);
 		switchPlayer();
 		output.printBoard(board);
-		return algorithm.checkWinner();
+		return game.checkWinner();
 	}
 	void switchPlayer() {
 		if (turn.equals("X")) {
