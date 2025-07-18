@@ -63,7 +63,18 @@ class Board{
 		}
 		return true;
 	}
-	public Winner isWinner(int cell1,int cell2,int cell3) {
+}
+
+
+
+class Game{
+	Board board;
+	String line="";
+	
+	public Game(Board board) {
+		this.board = board;
+	}
+		public Winner isWinner(int cell1,int cell2,int cell3) {
 		String line =  board[cell1] + board[cell2] + board[cell3];
 		if (line.equals("XXX"))
 				return Winner.X;
@@ -95,21 +106,9 @@ class Board{
 		int cell3 = 6;
 		return isWinner(cell1,cell2,cell3);
 	}
-}
-
-
-
-class Algorithm{
-	Board board;
-	String line="";
-	
-	public Algorithm(Board board) {
-		this.board = board;
-	}
-	
 	Winner checkWinnerInRows() {
 		for (int i = 0; i < 3; i++) {
-    	    Winner winner = board.checkWinnerInRow(i);
+    	    Winner winner = checkWinnerInRow(i);
     		if (winner  != Winner.None)
     			return  winner;
 		}
@@ -117,17 +116,17 @@ class Algorithm{
 	}
 	Winner checkWinnerInCols() {
 		for (int i = 0; i < 3; i++) {
-			 Winner winner = board.checkWinnerInCol(i);
+			 Winner winner = checkWinnerInCol(i);
 			 if (winner  != Winner.None)
 	    			return  winner;
 		}
 		return Winner.None;
 	}
 	Winner checkWinnerInDiagonal() {
-		Winner winner = board.checkWinnerInDiagonal1();
+		Winner winner = checkWinnerInDiagonal1();
 		if (winner  != Winner.None)
  			return  winner;
-	    return board.checkWinnerInDiagonal2();
+	    return checkWinnerInDiagonal2();
 	}
     Winner checkWinner() {
     	Winner winner = checkWinnerInRows();
