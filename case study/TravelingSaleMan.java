@@ -6,7 +6,7 @@
 import java.io.*;
 import java.util.Random;
 
-public class GA {
+public class TravelingSaleMan {
 	
 	/* Our aim is to find the best circuit 
 	 * from city X and going through all other cities
